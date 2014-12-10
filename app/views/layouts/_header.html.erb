@@ -19,6 +19,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Browse <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
+            <li><%= link_to "All Categories", listings_path %></li>
             <% Category.all.each do |category| %>
               <li><%= link_to category.name, listings_path(category: category.name) %></li>
               <% end %>
@@ -27,6 +28,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Brands <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
+            <li><%= link_to "All Brands", listings_path %></li>
             <% Brand.all.each do |brand| %>
               <li><%= link_to brand.name, listings_path(brand: brand.name) %></li>
               <% end %>
