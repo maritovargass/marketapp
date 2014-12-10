@@ -8,14 +8,19 @@ class ListingsController < ApplicationController
   end
   # GET /listings
   # GET /listings.json
-  def index
-    if params[:category].blank?
-    @listings = Listing.all.order("created_at DESC").paginate(:page => params[:page], :per_page => 5)
-  else
-    @category_id = Category.find_by(name: params[:category]).id
-    @listings = Listing.where(category_id: @category_id).order("created_at DESC").paginate(:page => params[:page], :per_page => 5)
-    end
-  end
+def index 
+@listings = Listing.all.order("created_at DESC").paginate(:page => params[:page], :per_page => 5) 
+
+if params[:category].present? 
+@category_id = Category.find_by(name: params[:category]).id 
+@listings = @listings.where(category_id: @category_id).order("created_at DESC").paginate(:page => params[:page], :per_page => 5) 
+end 
+
+if params[:brand].present? 
+@brand_id = Brand.find_by(name: params[:brand]).id 
+@listings = @listings.where(brand_id: @brand_id).order("created_at DESC").paginate(:page => params[:page], :per_page => 5) 
+end 
+end 
 
   # GET /listings/1
   # GET /listings/1.json
@@ -80,7 +85,7 @@ class ListingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
-      params.require(:listing).permit(:name, :category_id, :description, :price, :image)
+      params.require(:listing).permit(:name, :category_id, :brand_id, :description, :price, :image)
     end
 
     def check_user
